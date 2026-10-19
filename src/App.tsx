@@ -207,6 +207,12 @@ export default function App() {
     };
   }, [getValues]);
 
+  async function onSaveClick() {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    const result = await onSave();
+    if (result === "saved") window.alert("Successfully saved to the database.");
+  }
+
   async function onPrint() {
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     const values = getValues();
@@ -386,7 +392,7 @@ export default function App() {
                   {backendReady ? (
                     <button
                       type="button"
-                      onClick={() => void onSave()}
+                      onClick={() => void onSaveClick()}
                       className="ticket-btn ticket-btn-primary"
                       disabled={recordsBusy}
                     >
