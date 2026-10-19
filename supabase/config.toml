@@ -1,0 +1,17 @@
+[project]
+id = "local"
+
+[functions.verify_pin]
+verify_jwt = false
+
+[functions.search_patients]
+verify_jwt = false
+
+[functions.list_visits]
+verify_jwt = false
+
+[functions.get_visit]
+verify_jwt = false
+
+[functions.save_visit]
+verify_jwt = false

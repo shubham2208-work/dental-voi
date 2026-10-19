@@ -231,7 +231,7 @@ function NotesField() {
       <span className="ticket-label">Notes</span>
       <textarea
         {...extractedProps("notes", highlighted, registration, markEdited)}
-        rows={4}
+        rows={2}
         className={controlClass}
       />
     </label>

@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DosPickerDialog } from "./components/DosPickerDialog";
 import { ExtractPanel } from "./components/ExtractPanel";
 import { FieldsGrid, ResetEpochContext } from "./components/Fields";
+import { OfficePinGate } from "./components/OfficePinGate";
+import { PatientSearchPanel } from "./components/PatientSearchPanel";
 import { ProceduresTable } from "./components/ProceduresTable";
 import { Section } from "./components/Section";
+import { isBackendConfigured } from "./lib/api/client";
 import { HighlightProvider } from "./highlight";
 import { applyExtract } from "./lib/extract";
 import { BENEFIT_FIELDS, COIN_FIELDS, LIMIT_FIELDS, NOTES_FIELD, PATIENT_FIELDS } from "./lib/fields";
@@ -13,6 +17,7 @@ import { SAMPLE_TEXT } from "./lib/sample";
 import { voiSchema } from "./lib/schema";
 import { hasRecordedHistory, missingPrintFields, NO_HISTORY_PROMPT, PRINT_SUCCESS, printBlockMessage } from "./lib/printReady";
 import { toSummary } from "./lib/summary";
+import { usePatientRecords } from "./lib/usePatientRecords";
 import type { VoiFormValues } from "./types";
 
 const COVERED_ORDER = ["pat", "patid", "sub", "subid", "patdob", "subdob", "grp", "grpn"] as const;
@@ -49,8 +54,38 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [resetEpoch, setResetEpoch] = useState(0);
   const extractToggleRef = useRef<HTMLButtonElement>(null);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
   const pasteRef = useRef<HTMLTextAreaElement>(null);
   const drawerWasOpen = useRef(false);
+  const searchWasOpen = useRef(false);
+
+  const {
+    pinOpen,
+    setPinOpen,
+    searchOpen,
+    setSearchOpen,
+    dosOpen,
+    setDosOpen,
+    busy: recordsBusy,
+    searchStatus,
+    patientChoices,
+    pendingVisits,
+    pendingPatientLabel,
+    loadedVisitId,
+    loadedPatientId,
+    runSearch,
+    openVisitsForPatient,
+    loadVisit,
+    onSave,
+    openSearch,
+    clearLoadedRecord,
+    onPinSuccess,
+  } = usePatientRecords({
+    reset,
+    getValues,
+    onStatus: setStatus,
+  });
+  const backendReady = isBackendConfigured();
 
   const markEdited = useCallback((path: string) => {
     setHighlighted((current) => {
@@ -74,6 +109,19 @@ export default function App() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [drawerOpen]);
+
+  useEffect(() => {
+    if (!searchOpen) {
+      if (searchWasOpen.current) searchToggleRef.current?.focus();
+      return;
+    }
+    searchWasOpen.current = true;
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setSearchOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [searchOpen, setSearchOpen]);
 
   function onExtract() {
     const applied = applyExtract(getValues(), text);
@@ -104,7 +152,10 @@ export default function App() {
     setHighlighted(new Set());
     setText("");
     setDrawerOpen(false);
-  }, [reset]);
+    clearLoadedRecord();
+    setSearchOpen(false);
+    setDosOpen(false);
+  }, [clearLoadedRecord, reset, setDosOpen, setSearchOpen]);
 
   useEffect(() => {
     function onPageShow(event: PageTransitionEvent) {
@@ -197,6 +248,21 @@ export default function App() {
                 >
                   Extract
                 </button>
+                {backendReady ? (
+                  <button
+                    ref={searchToggleRef}
+                    type="button"
+                    className="ticket-btn"
+                    aria-expanded={searchOpen}
+                    aria-controls="search-drawer"
+                    onClick={() => {
+                      setDrawerOpen(false);
+                      openSearch();
+                    }}
+                  >
+                    Search patient
+                  </button>
+                ) : null}
                 <button type="button" onClick={onTheme} className="ticket-btn" aria-pressed={dark}>
                   {dark ? "Light mode" : "Dark mode"}
                 </button>
@@ -228,6 +294,34 @@ export default function App() {
                 </div>
               </>
             ) : null}
+            {searchOpen ? (
+              <>
+                <button
+                  type="button"
+                  className="ticket-drawer-backdrop"
+                  aria-label="Close search"
+                  onClick={() => setSearchOpen(false)}
+                />
+                <div id="search-drawer" className="ticket-drawer" role="dialog" aria-modal="true">
+                  <PatientSearchPanel
+                    busy={recordsBusy}
+                    status={searchStatus}
+                    patientChoices={patientChoices}
+                    onClose={() => setSearchOpen(false)}
+                    onSearch={(query) => void runSearch(query)}
+                    onPickPatient={(patient) => void openVisitsForPatient(patient)}
+                  />
+                </div>
+              </>
+            ) : null}
+            <OfficePinGate open={pinOpen} onSuccess={onPinSuccess} onClose={() => setPinOpen(false)} />
+            <DosPickerDialog
+              open={dosOpen}
+              patientLabel={pendingPatientLabel}
+              visits={pendingVisits}
+              onClose={() => setDosOpen(false)}
+              onSelect={(visitId) => void loadVisit(visitId)}
+            />
           </aside>
           <div className="ticket-main">
             <header className="ticket-header">
@@ -239,9 +333,16 @@ export default function App() {
             </header>
             <main className="ticket-work">
               <p className="ticket-note no-print">
-                Use dummy data in this preview. Records stay in this session only and are cleared on refresh. Nothing is
-                sent to a server.
+                Portfolio demo — use fake patients only. When the database is configured, unlock with the office PIN to
+                search past visits and save each date of service. Without backend env vars, the form stays in this
+                browser session only.
               </p>
+              {backendReady && (loadedVisitId || loadedPatientId) ? (
+                <p className="ticket-record-meta no-print">
+                  Loaded record · patient {loadedPatientId?.slice(0, 8) ?? "—"} · visit{" "}
+                  {loadedVisitId?.slice(0, 8) ?? "—"}
+                </p>
+              ) : null}
               {!drawerOpen && status ? (
                 <p className="ticket-status no-print" aria-live="polite">
                   {status}
@@ -270,6 +371,16 @@ export default function App() {
                   <ProceduresTable />
                 </Section>
                 <div className="ticket-actions ticket-form-actions no-print">
+                  {backendReady ? (
+                    <button
+                      type="button"
+                      onClick={() => void onSave()}
+                      className="ticket-btn ticket-btn-primary"
+                      disabled={recordsBusy}
+                    >
+                      Save to database
+                    </button>
+                  ) : null}
                   <button type="button" onClick={() => void onCopy()} className="ticket-btn">
                     Copy summary
                   </button>
