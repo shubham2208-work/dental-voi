@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T12:07:28Z",
+  "title": "Design System: Dental VOI",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Blotter Green",
+        "canonical": "#e7efe9",
+        "tonalRamp": ["#080d09", "#212722", "#3e443f", "#5c635e", "#7d847f", "#a0a7a1", "#c4ccc6", "#e9f1eb"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Ticket Paper",
+        "canonical": "#f4f7f5",
+        "tonalRamp": ["#0a0c0a", "#232624", "#404341", "#5f6260", "#808381", "#a3a6a4", "#c7cac8", "#ecefed"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Pine Ink",
+        "canonical": "#1a1f1c",
+        "tonalRamp": ["#080c0a", "#212623", "#3e4440", "#5d635f", "#7e8480", "#a0a7a3", "#c4cbc7", "#e9f0ec"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Pine",
+        "canonical": "#3d4a43",
+        "tonalRamp": ["#040e09", "#1c2822", "#39463f", "#57655e", "#78867e", "#9aa9a1", "#becec5", "#e3f3ea"]
+      },
+      "pine": {
+        "role": "primary",
+        "displayName": "Pine Shell",
+        "canonical": "#16352b",
+        "tonalRamp": ["#010f09", "#0c2b22", "#2a493f", "#49695e", "#6a8b7e", "#8caea1", "#afd2c5", "#d4f8ea"]
+      },
+      "pine-deep": {
+        "role": "primary",
+        "displayName": "Deep Pine",
+        "canonical": "#0e241d",
+        "tonalRamp": ["#010f0a", "#142a23", "#314840", "#50675f", "#708980", "#92aca2", "#b6d0c6", "#dbf6eb"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Field Line",
+        "canonical": "#c5d4cb",
+        "tonalRamp": ["#040e08", "#1c2821", "#39463e", "#58655d", "#78867e", "#9ba9a0", "#bfcec5", "#e4f3ea"]
+      },
+      "rule": {
+        "role": "primary",
+        "displayName": "Pine Rule",
+        "canonical": "#16352b",
+        "tonalRamp": ["#010f09", "#0c2b22", "#2a493f", "#49695e", "#6a8b7e", "#8caea1", "#afd2c5", "#d4f8ea"]
+      },
+      "review": {
+        "role": "secondary",
+        "displayName": "Review Amber",
+        "canonical": "#f6e2b8",
+        "tonalRamp": ["#100a01", "#302303", "#50401a", "#705f39", "#928059", "#b6a37b", "#dbc79e", "#feedc9"]
+      },
+      "review-ink": {
+        "role": "secondary",
+        "displayName": "Review Ink",
+        "canonical": "#1a1f1c",
+        "tonalRamp": ["#080c0a", "#212623", "#3e4440", "#5d635f", "#7e8480", "#a0a7a3", "#c4cbc7", "#e9f0ec"]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Amber Tick",
+        "canonical": "#9a6410",
+        "tonalRamp": ["#130900", "#342005", "#5d3900", "#835716", "#ac7529", "#d1984f", "#f8bd74", "#ffebd5"]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Claim Red",
+        "canonical": "#8c2f2a",
+        "tonalRamp": ["#1e0101", "#480a09", "#781b19", "#9d3e38", "#c36158", "#ea8479", "#f8b6ae", "#fde9e7"]
+      },
+      "danger-paper": {
+        "role": "tertiary",
+        "displayName": "Danger Paper",
+        "canonical": "#f8ecea",
+        "tonalRamp": ["#100908", "#2b2321", "#49403e", "#695f5d", "#8a7f7e", "#ada2a0", "#d2c6c4", "#f7ebe9"]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus Ring",
+        "canonical": "#16352b",
+        "tonalRamp": ["#010f09", "#0c2b22", "#2a493f", "#49695e", "#6a8b7e", "#8caea1", "#afd2c5", "#d4f8ea"]
+      },
+      "rail": {
+        "role": "neutral",
+        "displayName": "Rail Words",
+        "canonical": "#f4f7f5",
+        "tonalRamp": ["#0a0c0a", "#232624", "#404341", "#5f6260", "#808381", "#a3a6a4", "#c7cac8", "#ecefed"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The review count in the rail. Below 720px it steps to 1.75rem. It is not uppercase."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The subscriber value, inside an 80px-tall lead field. No other field uses it."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "The ticket name. The office name under it is body size at weight 600, capped at 36ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "The page, the field values, and the status line. Help and the session note drop to 0.9375rem in Soft Pine, measured to 68ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "The name of a field, in Soft Pine, 8px above its control. Sentence case."
+      },
+      "bar": {
+        "displayName": "Bar",
+        "purpose": "The panel heading, paper on pine. The rail's words are the sibling at the same size, weight 600, tracked wider."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "review-in",
+        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The rail count blurs in from 8px when the ticket enters review. It runs only when the person has not asked for reduced motion. Buttons do not animate."
+      }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "719px" },
+      { "name": "field-2", "value": "720px" },
+      { "name": "field-4", "value": "1100px" }
+    ],
+    "themes": {
+      "dark": {
+        "ground": "#0c1411",
+        "paper": "#15211c",
+        "ink": "#e7efe9",
+        "ink-soft": "#b7c9bf",
+        "pine": "#0a1c16",
+        "pine-deep": "#07140f",
+        "line": "#2c463b",
+        "rule": "#8faf9e",
+        "review": "#6a4a12",
+        "review-ink": "#f6e2b8",
+        "amber": "#f0c36a",
+        "danger": "#ffb4ac",
+        "danger-paper": "#3a1816",
+        "focus": "#f6e2b8",
+        "rail": "#f6e2b8"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single pine action. On this ticket it is Extract, in the header.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Extract</button>",
+      "css": ".ds-btn-primary { min-height: 40px; padding: 8px 16px; border: 1px solid var(--pine, #16352b); border-radius: 0; background: var(--pine, #16352b); color: var(--paper, #f4f7f5); font: 600 0.875rem/1.2 \"Public Sans\", \"Segoe UI\", sans-serif; cursor: pointer; } .ds-btn-primary:hover { background: var(--pine-deep, #0e241d); } .ds-btn-primary:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; } .ds-btn-primary:disabled { border-color: var(--line, #c5d4cb); background: var(--line, #c5d4cb); color: var(--ink-soft, #3d4a43); cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper action for copy, print, blank table, theme, and paste utilities.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Copy summary</button>",
+      "css": ".ds-btn-secondary { min-height: 40px; padding: 8px 16px; border: 1px solid var(--rule, #16352b); border-radius: 0; background: var(--paper, #f4f7f5); color: var(--ink, #1a1f1c); font: 600 0.875rem/1.2 \"Public Sans\", \"Segoe UI\", sans-serif; cursor: pointer; } .ds-btn-secondary:hover { background: var(--ground, #e7efe9); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Reset only. Rest state; the source hover reuses the review fill and is not part of the system.",
+      "html": "<button class=\"ds-btn-danger\" type=\"button\">Reset form</button>",
+      "css": ".ds-btn-danger { min-height: 40px; padding: 8px 16px; border: 1px solid var(--danger, #8c2f2a); border-radius: 0; background: var(--danger-paper, #f8ecea); color: var(--danger, #8c2f2a); font: 600 0.875rem/1.2 \"Public Sans\", \"Segoe UI\", sans-serif; cursor: pointer; } .ds-btn-danger:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square paper field, 44px tall, with a Soft Pine label 8px above.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Patient Name</span><input class=\"ds-input\" type=\"text\" value=\"Sam Doe\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; } .ds-label { color: var(--ink-soft, #3d4a43); font: 600 0.8125rem/1.45 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.01em; } .ds-input { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line, #c5d4cb); border-radius: 0; background: var(--paper, #f4f7f5); color: var(--ink, #1a1f1c); caret-color: var(--pine, #16352b); font: 400 1rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; font-variant-numeric: tabular-nums; } .ds-input::placeholder { color: var(--ink-soft, #3d4a43); font-weight: 400; } .ds-input:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Select",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "The same field, with two ink triangles as the mark.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Covered %</span><select class=\"ds-select\"><option>100%</option><option>80%</option></select></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; } .ds-label { color: var(--ink-soft, #3d4a43); font: 600 0.8125rem/1.45 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.01em; } .ds-select { width: 100%; min-height: 44px; padding: 10px 36px 10px 12px; border: 1px solid var(--line, #c5d4cb); border-radius: 0; background-color: var(--paper, #f4f7f5); color: var(--ink, #1a1f1c); font: 400 1rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; font-variant-numeric: tabular-nums; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink, #1a1f1c) 50%), linear-gradient(135deg, var(--ink, #1a1f1c) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; } .ds-select:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Extracted Field",
+      "kind": "input",
+      "refersTo": "input-extracted",
+      "description": "Unconfirmed extract: review fill, review ink, amber tick. Editing clears it.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Sub. ID #</span><input class=\"ds-input ds-extracted\" type=\"text\" value=\"SUB999\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; } .ds-label { color: var(--ink-soft, #3d4a43); font: 600 0.8125rem/1.45 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.01em; } .ds-extracted { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--amber, #9a6410); border-radius: 0; background: var(--review, #f6e2b8); color: var(--review-ink, #1a1f1c); caret-color: var(--pine, #16352b); font: 400 1rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; font-variant-numeric: tabular-nums; } .ds-extracted:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Subscriber Lead",
+      "kind": "input",
+      "refersTo": "input-lead",
+      "description": "The only headline field. Subscriber, 1.75rem, 80px tall.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Subscriber</span><input class=\"ds-lead\" type=\"text\" value=\"Jane Doe\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; } .ds-label { color: var(--ink-soft, #3d4a43); font: 600 0.8125rem/1.45 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.01em; } .ds-lead { width: 100%; min-height: 80px; padding: 16px 24px; border: 1px solid var(--line, #c5d4cb); border-radius: 0; background: var(--paper, #f4f7f5); color: var(--ink, #1a1f1c); caret-color: var(--pine, #16352b); font: 700 1.75rem/1.2 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; } .ds-lead:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Section Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Paper panel under a 1px pine rule. The pine bar is the heading.",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-bar\">Who is covered</h2><div class=\"ds-panel-body\"><p class=\"ds-panel-copy\">Subscriber, patient, insurance, and group.</p></div></section>",
+      "css": ".ds-panel { background: var(--paper, #f4f7f5); border: 1px solid var(--rule, #16352b); border-radius: 0; color: var(--ink, #1a1f1c); } .ds-panel-bar { margin: 0; padding: 12px 20px; background: var(--pine, #16352b); color: var(--paper, #f4f7f5); font: 700 0.75rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-panel-body { padding: 16px 20px; } .ds-panel-copy { margin: 0; font: 400 1rem/1.45 \"Public Sans\", \"Segoe UI\", sans-serif; }"
+    },
+    {
+      "name": "Review Rail",
+      "kind": "custom",
+      "refersTo": "rail-review",
+      "description": "Pine shell naming the ticket state. Review shows the display count in light amber.",
+      "html": "<aside class=\"ds-rail\"><p>Needs review <span class=\"ds-rail-count\">4</span> fields</p></aside>",
+      "css": ".ds-rail { display: flex; align-items: center; justify-content: center; width: 4.75rem; min-height: 280px; padding: 24px 12px; background: var(--pine, #16352b); color: #f6e2b8; } .ds-rail p { margin: 0; writing-mode: vertical-rl; transform: rotate(180deg); font: 600 0.75rem/1.2 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; } .ds-rail-count { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; text-transform: none; } @media (prefers-reduced-motion: no-preference) { .ds-rail-count { animation: ds-review-in 420ms cubic-bezier(0.16, 1, 0.3, 1); } } @keyframes ds-review-in { from { filter: blur(8px); } to { filter: blur(0); } }"
+    },
+    {
+      "name": "Procedure Table",
+      "kind": "custom",
+      "refersTo": "table-header",
+      "description": "Wide panel table. Blotter header, 52px rows, fields at 40px, tabular numerals.",
+      "html": "<div class=\"ds-scroll\"><table class=\"ds-table\"><thead><tr><th>Code</th><th>Covered %</th><th>Procedure</th></tr></thead><tbody><tr><td><input class=\"ds-cell\" value=\"D0120\" /></td><td><input class=\"ds-cell ds-cell-extracted\" value=\"100%\" /></td><td><input class=\"ds-cell\" value=\"Periodic oral evaluation\" /></td></tr></tbody></table></div>",
+      "css": ".ds-scroll { overflow-x: auto; } .ds-table { width: 100%; min-width: 760px; border-collapse: collapse; font-variant-numeric: tabular-nums; } .ds-table th { padding: 12px; background: var(--ground, #e7efe9); color: var(--ink, #1a1f1c); font: 700 0.8125rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; letter-spacing: 0.04em; text-align: left; text-transform: uppercase; } .ds-table td { height: 52px; padding: 8px 12px; border-top: 1px solid var(--line, #c5d4cb); vertical-align: middle; } .ds-cell { width: 100%; min-height: 40px; padding: 10px 12px; border: 1px solid var(--line, #c5d4cb); border-radius: 0; background: var(--paper, #f4f7f5); color: var(--ink, #1a1f1c); font: 400 1rem/1.3 \"Public Sans\", \"Segoe UI\", sans-serif; font-variant-numeric: tabular-nums; } .ds-cell-extracted { border-color: var(--amber, #9a6410); background: var(--review, #f6e2b8); color: var(--review-ink, #1a1f1c); } .ds-cell:focus-visible { outline: 2px solid var(--focus, #16352b); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Claim ticket",
+    "overview": "A verification is one ticket on a blotter-green desk. A pine rail names the ticket state, a paper header carries the title and the actions, and paper panels sit under a 1px rule. Public Sans does every job. Only two lines enlarge: the rail's review count and the subscriber name.\n\nThe ticket refuses the equal-card admin form and the spreadsheet costume. Depth is tonal. Blotter green is the ground, ticket paper is the panel, and pine is the structure: the rail, the panel bar, the rule, and the single primary action. Amber marks a field extract filled and a person has not yet edited. Corners are square. Nothing casts a shadow.\n\nLight is the default theme. Dark mode reassigns the same custom properties: the blotter and the pine shell go near-black, paper becomes a deep green panel, and the rail's words turn light amber. The direction asked for one column across identity, money, and co-insurance. The shipped field grid is one column below 720px, two columns from 720px, and four from 1100px. This record follows that grid.",
+    "keyCharacteristics": [
+      "Blotter green ground, pine shell, and paper panels under a 1px rule",
+      "Square corners and flat, shadowless surfaces",
+      "An amber review tick on extracted fields still waiting for a person",
+      "Public Sans, self-hosted, at 400, 600, and 700",
+      "Large type only on the rail count and the subscriber value",
+      "A sticky pine rail beside a single work column"
+    ],
+    "rules": [
+      {
+        "name": "The Amber Tick Rule",
+        "body": "Review amber fills a field only while it is still unconfirmed, and the amber tick strokes that field. Editing clears the mark. Amber does not fill buttons, bars, or headings. The review rail may wear the light amber as type.",
+        "section": "colors"
+      },
+      {
+        "name": "The Pine Structure Rule",
+        "body": "Pine is the shell: rail, panel bar, primary action, caret, scrollbar, and, in light, the 1px rule and the focus ring. Body copy stays Pine Ink on paper or blotter.",
+        "section": "colors"
+      },
+      {
+        "name": "The Browser Surface Rule",
+        "body": "Selection is review fill with review ink. The caret is pine. The scrollbar is a thin pine bar on the blotter. Focus is a 2px ring, 2px outside the control: pine in light, light amber in dark.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Large Lines Rule",
+        "body": "The rail count and the subscriber value are the only enlarged lines. The ticket title stays at 1.5rem. Section bars and the rail's words stay at 0.75rem.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Public Sans is the only face, at 400, 600, and 700. Numerals on fields and in the procedure table are tabular. Segoe UI is the fallback in the stack, never a second voice.",
+        "section": "typography"
+      },
+      {
+        "name": "The Bar Is the Heading Rule",
+        "body": "The uppercase line in the pine bar is the section heading. Nothing sits above it. The rail's uppercase line is the ticket state, not a caption for the title.",
+        "section": "typography"
+      },
+      {
+        "name": "The Ticket Shell Rule",
+        "body": "One pine rail, one work column, one paper header. The primary action lives in that header with the other actions. Sections stack; they do not sit in a card mosaic.",
+        "section": "layout"
+      },
+      {
+        "name": "The Widening Field Rule",
+        "body": "Fields are one column below 720px, two from 720px, and four from 1100px. The subscriber lead spans two columns only at the four-column step. Notes always span the row.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Ticket Rule",
+        "body": "Surfaces are flat at rest and flat on hover. Separation is blotter, paper, and pine. A shadow is outside this world.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Rule",
+        "body": "Radius stays 0 on controls, bars, panels, and buttons. The select mark is a pair of square triangles in the field, not a rounded chevron and not a glyph.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do fill an unconfirmed extracted field with review amber and stroke it with the amber tick, then clear both when the person edits.",
+      "Do keep a single pine primary button, square, 40px tall, padding 8px 16px, and place it in the header with the paper actions.",
+      "Do draw focus as a 2px ring, 2px outside the control, pine in light and light amber in dark.",
+      "Do set Public Sans tabular numerals on fields and the procedure table.",
+      "Do keep help and the session note in Soft Pine at 0.9375rem, within 68ch.",
+      "Do theme selection, caret, and scrollbar from the palette: review selection, pine caret, thin pine scrollbar on blotter."
+    ],
+    "donts": [
+      "Don't round a control, a bar, a panel, or a button, and don't add a shadow.",
+      "Don't introduce a second typeface, a system display face, or a weight outside 400, 600, and 700.",
+      "Don't enlarge any line except the rail count and the subscriber value.",
+      "Don't use review amber as a button fill, a heading color, or a hover.",
+      "Don't build the page from equal cards, or dress it as a spreadsheet.",
+      "Don't put a kicker or an eyebrow above a heading. The pine bar is the heading.",
+      "Don't stand in for an icon with a unicode glyph or an emoji. The select mark is drawn in the field's ink."
+    ]
+  }
+}

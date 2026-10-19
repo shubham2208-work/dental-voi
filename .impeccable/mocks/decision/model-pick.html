@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Remittance advice</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; background: #f3f6f8; color: #111418; font-family: "Avenir Next", "Segoe UI", sans-serif; }
+  .band { background: #0e3a4d; color: #f3f6f8; padding: 22px 32px 18px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 18px; align-items: end; }
+  .band h1 { font-size: 22px; font-weight: 650; letter-spacing: 0.04em; }
+  .k { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+  .num { font-size: 42px; font-variant-numeric: tabular-nums; font-weight: 650; }
+  .warn { color: #ffb4a8; }
+  main { padding: 18px 32px; display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; justify-content: space-between; align-items: center; }
+  button { height: 34px; padding: 0 12px; background: #0e3a4d; color: #fff; border: 0; font: inherit; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #d5dde3; font-size: 15px; }
+  th { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #0e3a4d; }
+  td.hit { background: #fff4d6; }
+  .sec { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #0e3a4d; margin-top: 6px; }
+</style>
+</head>
+<body>
+<header class="band">
+  <div><div class="k">Dental VOI · Affinity</div><h1>uhc · Group 00903</h1></div>
+  <div><div class="k">Max remaining</div><div class="num">$0.00</div></div>
+  <div><div class="k">Deductible met</div><div class="num">NO</div></div>
+  <div><div class="k">Ortho</div><div class="num warn">Not covered</div></div>
+</header>
+<main>
+  <div class="row"><div class="sec">Subscriber</div><button>Extract</button></div>
+  <table>
+    <tr><th>Subscriber</th><th>Sub. ID #</th><th>Patient</th><th>Patient ID</th><th>Sub. D.O.B</th></tr>
+    <tr><td class="hit">subtest</td><td class="hit">1234</td><td class="hit">testname</td><td class="hit">234</td><td class="hit">01/01/1998</td></tr>
+  </table>
+  <div class="sec">Co-insurance</div>
+  <table>
+    <tr><th>Preventative</th><th>Basic</th><th>Major</th><th>Perio</th><th>Implants</th></tr>
+    <tr><td class="hit">100%</td><td class="hit">80%</td><td class="hit">50%</td><td class="hit">80%</td><td class="hit">50%</td></tr>
+  </table>
+  <div class="sec">Procedures</div>
+  <table>
+    <tr><th>Code</th><th>%</th><th>Procedure</th><th>Frequency</th></tr>
+    <tr><td>D0150</td><td>100%</td><td>Comprehensive Exam</td><td>2x/Year</td></tr>
+    <tr><td>D1110</td><td>100%</td><td>Cleaning</td><td>4x/Year</td></tr>
+    <tr><td>D3330</td><td>80%</td><td>Root Canal</td><td>1x/Lifetime</td></tr>
+  </table>
+</main>
+</body>
+</html>

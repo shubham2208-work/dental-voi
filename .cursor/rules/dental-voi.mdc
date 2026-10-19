@@ -1,0 +1,14 @@
+---
+description: Constraints for the dental verification-of-insurance form
+globs: "**/*"
+alwaysApply: true
+---
+
+# Dental VOI
+
+- TypeScript strict mode; no `any` in the extraction module.
+- Keep parsing logic pure and covered by tests; do not put regexes inside components.
+- Do not hard-code secrets; read them from environment variables on the server only.
+- Do not rename field ids (`pat`, `subid`, `max`, `prev`, and the rest of `VoiFormValues`) without updating the alias map and any Sheets column mapping.
+- Use dummy data in development and tests. Never commit real patient data.
+- Do not log pasted text or form contents. Do not store PHI in `localStorage`.

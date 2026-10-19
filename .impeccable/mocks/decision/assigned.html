@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Claim ticket</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; background: #e7efe9; color: #1a1f1c; font-family: "Avenir Next", "Segoe UI", sans-serif; }
+  .app { display: grid; grid-template-columns: 72px 1fr; height: 900px; }
+  .rail { background: #16352b; color: #f4f7f5; display: flex; align-items: center; justify-content: center; }
+  .rail span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .rail b { color: #e6a23c; font-weight: 700; }
+  main { padding: 22px 28px; display: flex; flex-direction: column; gap: 14px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; }
+  h1 { font-size: 28px; font-weight: 650; }
+  .office { font-size: 18px; }
+  .actions { display: flex; gap: 8px; }
+  button { height: 36px; padding: 0 12px; border: 1px solid #16352b; background: #f4f7f5; font: inherit; font-size: 14px; }
+  button.primary { background: #16352b; color: #f4f7f5; }
+  .paste, .panel { background: #f4f7f5; border: 1px solid #16352b; }
+  .paste { padding: 12px 14px; }
+  .paste p { font-size: 13px; margin-bottom: 8px; }
+  .fake { height: 54px; border: 1px dashed #16352b; background: #fff; }
+  h2 { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; background: #16352b; color: #f4f7f5; padding: 6px 10px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 12px; }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+  label.big { grid-column: span 2; font-size: 14px; }
+  label.big b { font-size: 26px; font-weight: 650; }
+  .val { height: 32px; border: 1px solid #16352b; background: #f6e2b8; display: flex; align-items: center; padding: 0 8px; font-size: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #16352b; height: 32px; }
+  th { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  td.tick { background: #f6e2b8; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail"><span>Needs review · <b>14 fields</b></span></aside>
+  <main>
+    <header>
+      <div><h1>Dental VOI</h1><div class="office">Affinity</div></div>
+      <div class="actions"><button class="primary">Extract</button><button>Copy summary</button><button>Print</button></div>
+    </header>
+    <section class="paste"><p>Paste the Smile Loft sheet</p><div class="fake"></div></section>
+    <section class="panel">
+      <h2>Who is covered</h2>
+      <div class="grid">
+        <label class="big">Subscriber<b>subtest</b></label>
+        <label class="big">Sub. ID #<b>1234</b></label>
+        <label>Patient Name<div class="val">testname</div></label>
+        <label>Insurance Name<div class="val">uhc</div></label>
+        <label>Payor ID<div class="val">560</div></label>
+        <label>Group #<div class="val">00903</div></label>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Procedures</h2>
+      <table>
+        <tr><th>Code</th><th>Covered %</th><th>Procedure</th><th>Frequency</th></tr>
+        <tr><td>D0150</td><td class="tick">100%</td><td>Comprehensive Exam</td><td class="tick">2x/Year</td></tr>
+        <tr><td>D1110</td><td class="tick">100%</td><td>Cleaning</td><td class="tick">4x/Year</td></tr>
+        <tr><td>D2391</td><td class="tick">80%</td><td>Composite Filling</td><td>No Frequency</td></tr>
+      </table>
+    </section>
+  </main>
+</div>
+</body>
+</html>

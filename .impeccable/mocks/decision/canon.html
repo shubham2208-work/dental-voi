@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Category standard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; background: #f1f5f9; color: #0f172a; font-family: "Segoe UI", sans-serif; }
+  header { height: 64px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+  h1 { font-size: 18px; }
+  button { height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; font: inherit; }
+  button.go { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+  main { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+  h2 { font-size: 14px; margin-bottom: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  label { font-size: 12px; color: #475569; display: flex; flex-direction: column; gap: 4px; }
+  input { height: 36px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 8px; font: inherit; color: #0f172a; }
+  textarea { width: 100%; height: 72px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Dental VOI Form</h1>
+  <div><button class="go">Extract</button> <button>Copy summary</button> <button>Print</button></div>
+</header>
+<main>
+  <section class="card">
+    <h2>Paste patient or insurance text</h2>
+    <textarea>Subscriber: subtest</textarea>
+  </section>
+  <section class="card">
+    <h2>Patient and insurance</h2>
+    <div class="grid">
+      <label>Office Name<input value="Affinity" /></label>
+      <label>Insurance Name<input value="uhc" /></label>
+      <label>Subscriber<input value="subtest" /></label>
+      <label>Sub. ID #<input value="1234" /></label>
+      <label>Patient Name<input value="testname" /></label>
+      <label>Payor ID<input value="560" /></label>
+    </div>
+  </section>
+</main>
+</body>
+</html>

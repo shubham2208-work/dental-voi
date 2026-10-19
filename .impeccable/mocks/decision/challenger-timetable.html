@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Timetable marks</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; background: #e2b43a; color: #1c1a17; font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: 18px; }
+  .sheet { margin: 18px; background: #f4efe2; height: 864px; padding: 16px 18px; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  button { font: inherit; font-weight: 700; background: #1c1a17; color: #f4efe2; border: 0; padding: 8px 14px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #1c1a17; padding: 8px 10px; text-align: left; font-size: 18px; }
+  th { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .fill { background: #1c1a17; color: #f4efe2; font-weight: 700; }
+  .hollow { background: transparent; }
+  .strike { background: #c4321a; color: #f4efe2; font-weight: 700; text-decoration: line-through; }
+  .ok { background: #1f6b45; color: #f4efe2; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header><h1>Dental VOI · Affinity · uhc</h1><button>Extract</button></header>
+  <table>
+    <tr><th>Field</th><th>Value</th><th>Mark</th><th>Field</th><th>Value</th><th>Mark</th></tr>
+    <tr><td>Subscriber</td><td class="fill">subtest</td><td class="fill">Filled</td><td>Sub. ID #</td><td class="fill">1234</td><td class="fill">Filled</td></tr>
+    <tr><td>Patient</td><td class="fill">testname</td><td class="fill">Filled</td><td>Group #</td><td class="fill">00903</td><td class="fill">Filled</td></tr>
+    <tr><td>Max remaining</td><td class="ok">$0.00</td><td class="ok">Read</td><td>Deductible met</td><td class="hollow">NO</td><td class="hollow">Open</td></tr>
+    <tr><td>Preventative</td><td class="ok">100%</td><td class="ok">Covered</td><td>Basic</td><td class="ok">80%</td><td class="ok">Covered</td></tr>
+    <tr><td>Major</td><td class="ok">50%</td><td class="ok">Covered</td><td>Ortho</td><td class="strike">Not covered</td><td class="strike">Struck</td></tr>
+    <tr><td>D0150</td><td>100%</td><td>2x/Year</td><td>D1110</td><td>100%</td><td>4x/Year</td></tr>
+    <tr><td>D2391</td><td>80%</td><td>No frequency</td><td>D3330</td><td>80%</td><td>1x/Lifetime</td></tr>
+  </table>
+</div>
+</body>
+</html>

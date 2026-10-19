@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Plate sheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; background: #f5f4f6; color: #16181a; font-family: "Avenir Next", "Segoe UI", sans-serif; }
+  .bar { display: flex; align-items: center; gap: 24px; padding: 20px 32px; border-bottom: 1px solid #16181a; font-family: ui-monospace, monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+  main { padding: 32px 36px; }
+  h1 { font-size: 40px; font-weight: 500; letter-spacing: -0.02em; padding-bottom: 8px; }
+  .rule { height: 1px; background: #16181a; margin: 20px 0 0; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); }
+  .cell { border-right: 1px solid #c9c7c4; border-bottom: 1px solid #c9c7c4; padding: 22px 20px 24px; }
+  .cell span { display: block; font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+  .cell b { display: block; font-size: 20px; font-weight: 500; line-height: 1.3; }
+  .hit { background: #fff8df; }
+  button { margin-left: auto; padding: 12px 18px; background: #16181a; color: #f5f4f6; border: 0; font-family: ui-monospace, monospace; letter-spacing: 0.12em; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="bar"><span>Dental VOI</span><span>Affinity</span><span>Needs review 14</span><button>Extract</button></div>
+<main>
+  <h1>subtest</h1>
+  <div class="rule"></div>
+  <div class="grid">
+    <div class="cell hit" style="grid-column: span 3"><span>Sub. ID #</span><b>1234</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>Patient</span><b>testname</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>Insurance</span><b>uhc</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>Payor ID</span><b>560</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>Group #</span><b>00903</b></div>
+    <div class="cell" style="grid-column: span 3"><span>Max remaining</span><b>$0.00</b></div>
+    <div class="cell" style="grid-column: span 3"><span>Deductible met</span><b>NO</b></div>
+    <div class="cell" style="grid-column: span 3"><span>Ortho</span><b>Not covered</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>D0150</span><b>100% · 2x/Year</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>D1110</span><b>100% · 4x/Year</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>D2391</span><b>80% · No frequency</b></div>
+    <div class="cell hit" style="grid-column: span 3"><span>D3330</span><b>80% · Lifetime</b></div>
+  </div>
+</main>
+</body>
+</html>
