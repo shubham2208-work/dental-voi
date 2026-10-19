@@ -118,26 +118,31 @@ export function usePatientRecords({
     [ensureSession, openVisitsForPatient],
   );
 
-  const onSave = useCallback(async () => {
-    if (!ensureSession()) return;
-    const values = getValues();
-    if (!canDerivePatientKey(values.office, values.patid)) {
-      onStatus("Office name and Patient ID are required before saving.");
-      return;
-    }
-    setBusy(true);
-    try {
-      const result = await saveVisit(values);
-      setLoadedVisitId(result.visit_id);
-      setLoadedPatientId(result.patient_id);
-      onStatus(`Saved ${values.pat || "patient"} · DOS ${values.date}.`);
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 401) setPinOpen(true);
-      onStatus(err instanceof ApiError ? err.message : "Save failed");
-    } finally {
-      setBusy(false);
-    }
-  }, [ensureSession, getValues, onStatus]);
+  const onSave = useCallback(
+    async (snapshot?: VoiFormValues): Promise<"saved" | "needs-pin" | "blocked" | "failed"> => {
+      if (!ensureSession()) return "needs-pin";
+      const values = snapshot ?? getValues();
+      if (!canDerivePatientKey(values.office, values.patid)) {
+        onStatus("Office name and Patient ID are required before saving.");
+        return "blocked";
+      }
+      setBusy(true);
+      try {
+        const result = await saveVisit(values);
+        setLoadedVisitId(result.visit_id);
+        setLoadedPatientId(result.patient_id);
+        onStatus(`Saved ${values.pat || "patient"} · DOS ${values.date}.`);
+        return "saved";
+      } catch (err) {
+        if (err instanceof ApiError && err.status === 401) setPinOpen(true);
+        onStatus(err instanceof ApiError ? err.message : "Save failed");
+        return "failed";
+      } finally {
+        setBusy(false);
+      }
+    },
+    [ensureSession, getValues, onStatus],
+  );
 
   const openSearch = useCallback(() => {
     if (!ensureSession()) return;

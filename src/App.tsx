@@ -207,17 +207,29 @@ export default function App() {
     };
   }, [getValues]);
 
-  function onPrint() {
+  async function onPrint() {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     const values = getValues();
+    let saved = false;
+    if (backendReady) {
+      const result = await onSave(values);
+      if (result === "needs-pin") {
+        setStatus("Enter the office PIN, then press Print or save as PDF again.");
+        return;
+      }
+      if (result !== "saved") return;
+      saved = true;
+    }
     const missing = missingPrintFields(values);
     if (missing.length > 0) {
-      setStatus(printBlockMessage(missing));
+      const block = printBlockMessage(missing);
+      setStatus(saved ? `Saved ${values.pat || "patient"} · DOS ${values.date}. ${block}` : block);
       return;
     }
     if (!hasRecordedHistory(values) && !window.confirm(NO_HISTORY_PROMPT)) return;
     document.title = printTitle(values.pat);
     window.print();
-    window.alert(PRINT_SUCCESS);
+    window.alert(saved ? "Saved to the database. Successfully printed." : PRINT_SUCCESS);
   }
 
   function onTheme() {
@@ -384,7 +396,7 @@ export default function App() {
                   <button type="button" onClick={() => void onCopy()} className="ticket-btn">
                     Copy summary
                   </button>
-                  <button type="button" onClick={onPrint} className="ticket-btn">
+                  <button type="button" onClick={() => void onPrint()} className="ticket-btn" disabled={recordsBusy}>
                     Print or save as PDF
                   </button>
                   <button type="button" onClick={onBlank} className="ticket-btn">
