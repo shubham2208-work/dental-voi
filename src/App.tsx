@@ -3,11 +3,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DosPickerDialog } from "./components/DosPickerDialog";
 import { ExtractPanel } from "./components/ExtractPanel";
+import { ExtractIcon, MoonIcon, SearchIcon, SunIcon } from "./components/RailIcons";
 import { FieldsGrid, ResetEpochContext } from "./components/Fields";
 import { OfficePinGate } from "./components/OfficePinGate";
 import { PatientSearchPanel } from "./components/PatientSearchPanel";
 import { ProceduresTable } from "./components/ProceduresTable";
 import { Section } from "./components/Section";
+import { VoiMark } from "./components/VoiMark";
 import { isBackendConfigured } from "./lib/api/client";
 import { HighlightProvider } from "./highlight";
 import { applyExtract } from "./lib/extract";
@@ -254,6 +256,19 @@ export default function App() {
         </a>
         <div className="ticket-app">
           <aside className="ticket-rail no-print">
+            <div className="rail-hint" aria-hidden="true">
+              <span className="rail-hint-item">
+                <ExtractIcon />
+                <span>Extract</span>
+              </span>
+              {backendReady ? (
+                <span className="rail-hint-item">
+                  <SearchIcon />
+                  <span>Search</span>
+                </span>
+              ) : null}
+              <span className="rail-hint-item">{dark ? <SunIcon /> : <MoonIcon />}</span>
+            </div>
             <div className="rail-body">
               <div className="rail-tools">
                 <button
@@ -264,6 +279,7 @@ export default function App() {
                   aria-controls="extract-drawer"
                   onClick={() => setDrawerOpen((open) => !open)}
                 >
+                  <ExtractIcon />
                   Extract
                 </button>
                 {backendReady ? (
@@ -278,11 +294,18 @@ export default function App() {
                       openSearch();
                     }}
                   >
+                    <SearchIcon />
                     Search patient
                   </button>
                 ) : null}
-                <button type="button" onClick={onTheme} className="ticket-btn" aria-pressed={dark}>
-                  {dark ? "Light mode" : "Dark mode"}
+                <button
+                  type="button"
+                  onClick={onTheme}
+                  className="ticket-btn ticket-btn-icon"
+                  aria-pressed={dark}
+                  aria-label={dark ? "Light mode" : "Dark mode"}
+                >
+                  {dark ? <SunIcon /> : <MoonIcon />}
                 </button>
               </div>
             </div>
@@ -343,10 +366,13 @@ export default function App() {
           </aside>
           <div className="ticket-main">
             <header className="ticket-header">
-              <div>
-                <h1 className="ticket-title no-print">Dental VOI</h1>
-                <h1 className="ticket-title ticket-print-title">{printedName}</h1>
-                {office ? <p className="ticket-office">{office}</p> : null}
+              <div className="ticket-brand">
+                <VoiMark />
+                <div>
+                  <h1 className="ticket-title no-print">Dental VOI</h1>
+                  <h1 className="ticket-title ticket-print-title">{printedName}</h1>
+                  {office ? <p className="ticket-office">{office}</p> : null}
+                </div>
               </div>
             </header>
             <main className="ticket-work">
