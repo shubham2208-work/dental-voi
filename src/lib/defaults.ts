@@ -72,3 +72,8 @@ export function createDefaultRecord(now = new Date()): VoiFormValues {
 export function blankProcedures(rows: readonly ProcedureRow[]): ProcedureRow[] {
   return rows.map((row) => ({ ...row, pct: "", freq: "", history: "" }));
 }
+
+export function createFreshRecord(now = new Date()): VoiFormValues {
+  const record = createDefaultRecord(now);
+  return { ...record, procedures: blankProcedures(record.procedures) };
+}

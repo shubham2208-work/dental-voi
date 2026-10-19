@@ -8,7 +8,7 @@ import { Section } from "./components/Section";
 import { HighlightProvider } from "./highlight";
 import { applyExtract } from "./lib/extract";
 import { BENEFIT_FIELDS, COIN_FIELDS, LIMIT_FIELDS, NOTES_FIELD, PATIENT_FIELDS } from "./lib/fields";
-import { blankProcedures, createDefaultRecord } from "./lib/defaults";
+import { blankProcedures, createFreshRecord } from "./lib/defaults";
 import { SAMPLE_TEXT } from "./lib/sample";
 import { voiSchema } from "./lib/schema";
 import { hasRecordedHistory, missingPrintFields, NO_HISTORY_PROMPT, PRINT_SUCCESS, printBlockMessage } from "./lib/printReady";
@@ -35,7 +35,7 @@ const RECORD_FIELDS = fieldsInOrder(RECORD_ORDER);
 
 export default function App() {
   const methods = useForm<VoiFormValues>({
-    defaultValues: createDefaultRecord(),
+    defaultValues: createFreshRecord(),
     resolver: zodResolver(voiSchema),
   });
   const { getValues, reset, setValue, watch } = methods;
@@ -98,15 +98,25 @@ export default function App() {
     setStatus("Cleared percentages, frequencies, and history.");
   }
 
-  function onReset() {
-    if (!window.confirm("Start a new form?")) return;
-    const next = createDefaultRecord();
-    next.procedures = blankProcedures(next.procedures);
-    reset(next, { keepFieldsRef: true });
+  const startFresh = useCallback(() => {
+    reset(createFreshRecord(), { keepFieldsRef: true });
     setResetEpoch((epoch) => epoch + 1);
     setHighlighted(new Set());
     setText("");
     setDrawerOpen(false);
+  }, [reset]);
+
+  useEffect(() => {
+    function onPageShow(event: PageTransitionEvent) {
+      if (event.persisted) startFresh();
+    }
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, [startFresh]);
+
+  function onReset() {
+    if (!window.confirm("Start a new form?")) return;
+    startFresh();
     setStatus("Started a new form.");
   }
 
@@ -237,7 +247,7 @@ export default function App() {
                   {status}
                 </p>
               ) : null}
-              <form id="voi-form" className="ticket-stack" onSubmit={(event) => event.preventDefault()}>
+              <form id="voi-form" className="ticket-stack" autoComplete="off" onSubmit={(event) => event.preventDefault()}>
                 <Section title="Office and insurance information">
                   <FieldsGrid fields={RECORD_FIELDS} />
                 </Section>

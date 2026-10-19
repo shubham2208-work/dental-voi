@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { blankProcedures, createDefaultRecord } from "./defaults";
+import { blankProcedures, createDefaultRecord, createFreshRecord } from "./defaults";
 import {
   formatMoney,
   normalizeDate,
@@ -150,6 +150,16 @@ describe("defaults", () => {
     expect(first?.history).toBe("");
     expect(first?.code).toBe("D0150");
     expect(first?.name).toBe("Comprehensive Exam");
+  });
+
+  it("starts a visit with the same cleared table as reset", () => {
+    const record = createFreshRecord(NOW);
+    expect(record.procedures.every((row) => row.pct === "" && row.freq === "" && row.history === "")).toBe(true);
+    expect(record.procedures[0]?.code).toBe("D0150");
+    expect(record.dedmet).toBe("NO");
+    expect(record.ortho).toBe("Not Covered");
+    expect(record.pat).toBe("");
+    expect(record.notes).toBe("");
   });
 
   it("summarizes fields in sheet order", () => {
