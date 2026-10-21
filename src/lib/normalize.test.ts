@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { blankProcedures, createDefaultRecord, createFreshRecord } from "./defaults";
 import {
+  formatDate,
   formatMoney,
   normalizeDate,
   normalizeFrequency,
@@ -33,6 +34,13 @@ describe("normalizeDate", () => {
     expect(normalizeDate("07-04-12", NOW)).toBe("2012-07-04");
     expect(normalizeDate("2026-01-01", NOW)).toBe("2026-01-01");
     expect(normalizeDate("October 19, 2026", NOW)).toBe("2026-10-19");
+  });
+
+  it("displays stored dates as MM/DD/YYYY", () => {
+    expect(formatDate("2026-10-21")).toBe("10/21/2026");
+    expect(formatDate("1980-03-15")).toBe("03/15/1980");
+    expect(formatDate("Teeth #: 14")).toBe("Teeth #: 14");
+    expect(formatDate("")).toBe("");
   });
 
   it("rejects impossible dates", () => {
@@ -157,7 +165,7 @@ describe("defaults", () => {
     expect(record.procedures.every((row) => row.pct === "" && row.freq === "" && row.history === "")).toBe(true);
     expect(record.procedures[0]?.code).toBe("D0150");
     expect(record.dedmet).toBe("NO");
-    expect(record.ortho).toBe("Not Covered");
+    expect(record.ortho).toBe("");
     expect(record.pat).toBe("");
     expect(record.notes).toBe("");
   });
@@ -169,6 +177,6 @@ describe("defaults", () => {
     expect(text).toContain("Deductible Met: NO");
     expect(text).toContain("Ortho: Not Covered");
     expect(text).toContain("D1110 | 100% | Cleaning | 4x/Year |");
-    expect(text).toContain(`Date: ${NOW.getFullYear()}-06-15`);
+    expect(text).toContain("Date: 06/15/2026");
   });
 });

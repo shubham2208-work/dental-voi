@@ -1,7 +1,7 @@
 import type { VoiFormValues } from "../types";
 import type { FieldDef } from "./field-types";
 import { SUMMARY_FIELDS } from "./fields";
-import { formatMoney } from "./normalize";
+import { formatDate, formatMoney } from "./normalize";
 
 export function toSummary(values: VoiFormValues): string {
   const lines = ["Dental VOI", ""];
@@ -17,5 +17,6 @@ export function toSummary(values: VoiFormValues): string {
 
 function displayValue(field: FieldDef, values: VoiFormValues): string {
   if (field.kind === "money") return formatMoney(values[field.name]);
+  if (field.kind === "date") return formatDate(values[field.name]);
   return values[field.name];
 }

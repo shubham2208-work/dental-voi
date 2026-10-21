@@ -60,6 +60,7 @@ export default function App() {
   const pasteRef = useRef<HTMLTextAreaElement>(null);
   const drawerWasOpen = useRef(false);
   const searchWasOpen = useRef(false);
+  const saveAfterPin = useRef(false);
 
   const {
     pinOpen,
@@ -100,7 +101,10 @@ export default function App() {
 
   useEffect(() => {
     if (!drawerOpen) {
-      if (drawerWasOpen.current) extractToggleRef.current?.focus();
+      if (drawerWasOpen.current) {
+        drawerWasOpen.current = false;
+        if (!searchOpen) extractToggleRef.current?.focus();
+      }
       return;
     }
     drawerWasOpen.current = true;
@@ -110,11 +114,14 @@ export default function App() {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [drawerOpen]);
+  }, [drawerOpen, searchOpen]);
 
   useEffect(() => {
     if (!searchOpen) {
-      if (searchWasOpen.current) searchToggleRef.current?.focus();
+      if (searchWasOpen.current) {
+        searchWasOpen.current = false;
+        if (!drawerOpen) searchToggleRef.current?.focus();
+      }
       return;
     }
     searchWasOpen.current = true;
@@ -123,7 +130,21 @@ export default function App() {
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [searchOpen, setSearchOpen]);
+  }, [drawerOpen, searchOpen, setSearchOpen]);
+
+  function onExtractClick() {
+    setSearchOpen(false);
+    setDrawerOpen((open) => !open);
+  }
+
+  function onSearchClick() {
+    if (searchOpen) {
+      setSearchOpen(false);
+      return;
+    }
+    setDrawerOpen(false);
+    openSearch();
+  }
 
   function onExtract() {
     const applied = applyExtract(getValues(), text);
@@ -209,10 +230,27 @@ export default function App() {
     };
   }, [getValues]);
 
-  async function onSaveClick() {
-    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  async function finishSave() {
     const result = await onSave();
     if (result === "saved") window.alert("Successfully saved to the database.");
+  }
+
+  function onSaveClick() {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    saveAfterPin.current = true;
+    setPinOpen(true);
+  }
+
+  function handlePinSuccess() {
+    const shouldSave = saveAfterPin.current;
+    saveAfterPin.current = false;
+    onPinSuccess();
+    if (shouldSave) void finishSave();
+  }
+
+  function handlePinClose() {
+    saveAfterPin.current = false;
+    setPinOpen(false);
   }
 
   async function onPrint() {
@@ -277,7 +315,7 @@ export default function App() {
                   className="ticket-btn ticket-btn-primary"
                   aria-expanded={drawerOpen}
                   aria-controls="extract-drawer"
-                  onClick={() => setDrawerOpen((open) => !open)}
+                  onClick={onExtractClick}
                 >
                   <ExtractIcon />
                   Extract
@@ -289,10 +327,7 @@ export default function App() {
                     className="ticket-btn"
                     aria-expanded={searchOpen}
                     aria-controls="search-drawer"
-                    onClick={() => {
-                      setDrawerOpen(false);
-                      openSearch();
-                    }}
+                    onClick={onSearchClick}
                   >
                     <SearchIcon />
                     Search patient
@@ -355,7 +390,7 @@ export default function App() {
                 </div>
               </>
             ) : null}
-            <OfficePinGate open={pinOpen} onSuccess={onPinSuccess} onClose={() => setPinOpen(false)} />
+            <OfficePinGate open={pinOpen} onSuccess={handlePinSuccess} onClose={handlePinClose} />
             <DosPickerDialog
               open={dosOpen}
               patientLabel={pendingPatientLabel}

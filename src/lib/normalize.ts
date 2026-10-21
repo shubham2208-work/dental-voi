@@ -44,6 +44,12 @@ function validIso(year: string, month: string, day: string): string | null {
   return `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 }
 
+export function formatDate(value: string): string {
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value.trim());
+  if (!iso) return value;
+  return `${iso[2]}/${iso[3]}/${iso[1]}`;
+}
+
 export function normalizeMoney(raw: string): number | null {
   const cleaned = raw.trim().replace(/[$,\s]/g, "");
   if (!/^\d+(\.\d{1,2})?$/.test(cleaned)) return null;

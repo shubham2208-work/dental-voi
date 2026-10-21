@@ -17,6 +17,7 @@
   --amber: #9a6410;
   --danger: #8c2f2a;
   --danger-paper: #f8ecea;
+  --denied: #f3b7b4;
   --focus: #16352b;
   --rail: #f4f7f5;
   --font: "Public Sans", "Segoe UI", sans-serif;
@@ -37,6 +38,7 @@ html.dark {
   --amber: #f0c36a;
   --danger: #ffb4ac;
   --danger-paper: #3a1816;
+  --denied: #6e2c28;
   --focus: #f6e2b8;
   --rail: #f6e2b8;
 }
@@ -769,6 +771,15 @@ select.ticket-control {
   color: var(--review-ink);
 }
 
+.ticket-control[data-denied="true"],
+.ticket-table td.ticket-denied {
+  background-color: var(--denied);
+}
+
+.ticket-control[data-denied="true"] {
+  color: var(--ink);
+}
+
 .ticket-actions-inline {
   display: flex;
   flex-wrap: wrap;
@@ -967,6 +978,12 @@ select.ticket-control {
     background: transparent !important;
     color: black !important;
     border-color: #16352b !important;
+  }
+
+  .ticket-control[data-denied="true"],
+  .ticket-table td.ticket-denied {
+    background-color: #f3b7b4 !important;
+    color: black !important;
   }
 }
 

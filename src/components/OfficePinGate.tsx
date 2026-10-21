@@ -49,14 +49,16 @@ export function OfficePinGate({
             ) : null}
           </div>
           <form onSubmit={(event) => void submit(event)} className="ticket-paste">
-            <p className="ticket-help">Enter the shared office PIN to search and save demo patient records.</p>
+            <p className="ticket-help">
+              Enter the office PIN to save this form to the database. Demo PIN: demo1234
+            </p>
             <label className="ticket-field-label" htmlFor="office-pin">
               PIN
             </label>
             <input
               id="office-pin"
               type="password"
-              inputMode="numeric"
+              autoFocus
               autoComplete="off"
               className="ticket-control"
               value={pin}

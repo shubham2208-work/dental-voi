@@ -36,20 +36,20 @@ export function ProceduresTable() {
                 <td>
                   <span className="ticket-fixed">{row.code}</span>
                 </td>
-                <td>
+                <td className={row.pct === "0%" || row.pct === "Not Covered" ? "ticket-denied" : undefined}>
                   <PercentSelect name={`procedures.${index}.pct`} label={`Covered percent for ${rowLabel}`} />
                 </td>
                 <td>
                   <span className="ticket-fixed">{row.name}</span>
                 </td>
-                <td>
+                <td className={row.freq === "Not Covered" ? "ticket-denied" : undefined}>
                   <FrequencySelect name={`procedures.${index}.freq`} label={`Frequency for ${rowLabel}`} />
                 </td>
                 <td>
                   <input
                     {...editedInput(register(historyPath), historyPath, highlighted, markEdited)}
                     aria-label={`History for ${rowLabel}`}
-                    placeholder={row.teeth ? "Teeth #:" : ""}
+                    autoComplete="off"
                     className={cellClass}
                   />
                 </td>

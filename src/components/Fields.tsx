@@ -2,8 +2,8 @@ import { createContext, useContext, useEffect, useState, type ChangeEvent } from
 import { useFormContext, type FieldPath, type UseFormRegisterReturn } from "react-hook-form";
 import { useHighlight } from "../highlight";
 import type { FieldDef } from "../lib/field-types";
-import { formatMoney, normalizeMoney, optionsWithValue } from "../lib/normalize";
-import { FREQ_OPTIONS, MTC_OPTIONS, PCT_OPTIONS, PCT_STEP_OPTIONS, WAIT_OPTIONS, type MoneyId, type PctId, type VoiFormValues } from "../types";
+import { formatDate, formatMoney, normalizeDate, normalizeMoney, optionsWithValue } from "../lib/normalize";
+import { FREQ_OPTIONS, MTC_OPTIONS, PCT_OPTIONS, PCT_STEP_OPTIONS, WAIT_OPTIONS, type MoneyId, type PctId, type TextId, type VoiFormValues } from "../types";
 
 const controlClass = "ticket-control";
 const OTHER_PERCENT = "Other";
@@ -16,6 +16,14 @@ function isStandardPercent(value: string): boolean {
 
 function isStepPercent(value: string): boolean {
   return (PCT_STEP_OPTIONS as readonly string[]).includes(value) && !isStandardPercent(value);
+}
+
+function isDeniedPercent(value: string): boolean {
+  return value === "0%" || value === "Not Covered";
+}
+
+function isDeniedFrequency(value: string): boolean {
+  return value === "Not Covered";
 }
 
 function extractedProps(path: string, highlighted: ReadonlySet<string>, register: UseFormRegisterReturn, markEdited: (path: string) => void) {
@@ -60,7 +68,7 @@ function FieldControl({ field, prominent, wide }: { field: FieldDef; prominent: 
     case "notes":
       return <NotesField />;
     case "date":
-      return <TextField name={field.name} label={field.label} type="date" />;
+      return <DateField name={field.name} label={field.label} />;
     case "text":
     case "clause":
       return <TextField name={field.name} label={field.label} prominent={prominent} wide={wide} />;
@@ -169,6 +177,7 @@ function PercentChoices({ name, label }: { name: FieldPath<VoiFormValues>; label
       aria-label={label}
       className={controlClass}
       data-extracted={highlighted.has(name) ? "true" : undefined}
+      data-denied={isDeniedPercent(value) ? "true" : undefined}
       value={showSteps && value === "" ? OTHER_PERCENT : value}
       onBlur={registration.onBlur}
       onChange={(event) => {
@@ -207,7 +216,12 @@ export function FrequencySelect({ name, label }: { name: FieldPath<VoiFormValues
   const watched = watch(name);
   const value = typeof watched === "string" ? watched : "";
   return (
-    <select {...extractedProps(name, highlighted, registration, markEdited)} aria-label={label} className={controlClass}>
+    <select
+      {...extractedProps(name, highlighted, registration, markEdited)}
+      aria-label={label}
+      className={controlClass}
+      data-denied={isDeniedFrequency(value) ? "true" : undefined}
+    >
       <option value="">Select</option>
       {optionsWithValue(FREQ_OPTIONS, value).map((option) => (
         <option key={option} value={option}>
@@ -233,6 +247,52 @@ function NotesField() {
         {...extractedProps("notes", highlighted, registration, markEdited)}
         rows={2}
         className={controlClass}
+      />
+    </label>
+  );
+}
+
+function DateField({ name, label }: { name: TextId; label: string }) {
+  const { watch, setValue } = useFormContext<VoiFormValues>();
+  const value = watch(name);
+  const { highlighted, markEdited } = useHighlight();
+  const [focused, setFocused] = useState(false);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    if (!focused) setText(formatDate(value));
+  }, [focused, value]);
+
+  return (
+    <label className="ticket-field">
+      <span className="ticket-label">{label}</span>
+      <input
+        value={focused ? text : formatDate(value)}
+        autoComplete="off"
+        placeholder="MM/DD/YYYY"
+        data-extracted={highlighted.has(name) ? "true" : undefined}
+        className={controlClass}
+        onFocus={() => {
+          setFocused(true);
+          setText(formatDate(value));
+        }}
+        onBlur={() => {
+          setFocused(false);
+          if (text.trim() === "") {
+            setValue(name, "", { shouldDirty: true });
+            return;
+          }
+          const parsed = normalizeDate(text);
+          if (parsed === null) {
+            setText(formatDate(value));
+            return;
+          }
+          setValue(name, parsed, { shouldDirty: true });
+        }}
+        onChange={(event) => {
+          setText(event.target.value);
+          markEdited(name);
+        }}
       />
     </label>
   );

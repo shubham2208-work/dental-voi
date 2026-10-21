@@ -75,5 +75,5 @@ export function blankProcedures(rows: readonly ProcedureRow[]): ProcedureRow[] {
 
 export function createFreshRecord(now = new Date()): VoiFormValues {
   const record = createDefaultRecord(now);
-  return { ...record, procedures: blankProcedures(record.procedures) };
+  return { ...record, ortho: "", procedures: blankProcedures(record.procedures) };
 }

@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import type { PatientSummary } from "../lib/api/types";
+import { formatDate, normalizeDate } from "../lib/normalize";
 
 type SearchMode = "name_dob" | "member_id";
 
@@ -29,7 +30,7 @@ export function PatientSearchPanel({
       onSearch({ mode, subid });
       return;
     }
-    onSearch({ mode, pat, patdob });
+    onSearch({ mode, pat, patdob: normalizeDate(patdob) ?? patdob });
   }
 
   return (
@@ -80,9 +81,10 @@ export function PatientSearchPanel({
             </label>
             <input
               id="search-patdob"
-              type="date"
               className="ticket-control"
               value={patdob}
+              placeholder="MM/DD/YYYY"
+              autoComplete="off"
               onChange={(event) => setPatdob(event.target.value)}
             />
           </>
@@ -120,7 +122,7 @@ export function PatientSearchPanel({
                   <button type="button" className="ticket-picker-item" onClick={() => onPickPatient(patient)}>
                     <span className="ticket-picker-item__main">{patient.pat || "Unknown name"}</span>
                     <span className="ticket-picker-item__meta">
-                      ID {patient.patid || "—"} · DOB {patient.patdob ?? "—"}
+                      ID {patient.patid || "—"} · DOB {patient.patdob ? formatDate(patient.patdob) : "—"}
                     </span>
                   </button>
                 </li>
